@@ -3,10 +3,11 @@
 pipeline {
     agent none
 
-    parameters{
-        choice(name: 'VERSION', choices: ['1.1', '1.2', '1.3', '2.0', '2.1', '2.2'], description: 'Select the version to build and deploy.')
-        booleanParam(name: "executeTests", defaultValue = true, desscription: 'testting' )
-    }
+    parameters {
+    choice(name: 'VERSION', choices: ['1.1', '1.2', '1.3', '2.0', '2.1', '2.2'], description: 'Select the version to build and deploy.')
+    booleanParam(name: 'executeTests', defaultValue: true, description: 'Run tests during the build.')
+}
+
     stages {
         stage('build') {
             steps {
@@ -16,13 +17,13 @@ pipeline {
             }
         }
         stage('test') {
-            steps {
-                script {
-                    when {
+              when {
                         expression{
                             params.executeTests
                         }
                     }
+            steps {
+                script {
                     echo "Testing the application..."
                 }
             }
