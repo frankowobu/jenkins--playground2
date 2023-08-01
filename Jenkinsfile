@@ -4,7 +4,7 @@ pipeline {
     agent none
 
     parameters{
-        choice(name:VERSION, choices: [1.1,1.2,1.3], descriptiom: "")
+        choice(name:VERSION, choices: [1.1,1.2,1.3], description: "")
     }
     stages {
         stage('build') {
