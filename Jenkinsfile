@@ -3,7 +3,7 @@
 pipeline {
     agent any
     envitonment{
-        NEW_VERSION == 1.2
+        NEW_VERSION = 1.2
     }
     stages {
         stage('build') {
