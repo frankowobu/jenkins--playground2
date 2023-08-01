@@ -2,14 +2,15 @@
 
 pipeline {
     agent none
-    environment{
-        NEW_VERSION = '3.2'
+
+    parameters{
+        choice(name:VERSION, choices: [1.1,1.2,1.3], descriptiom: "")
     }
     stages {
         stage('build') {
             steps {
                 script {
-                    echo "Building the application for version ${NEW_VERSION}..."
+                    echo "Building the application for version ${params.VERSION}..."
                 }
             }
         }
