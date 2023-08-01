@@ -36,9 +36,18 @@ pipeline {
             }
         }
         stage('deploy') {
+            input{
+                message "select where you will like to deploy"
+                ok "done"
+                parameters{
+                     choice(name: 'ENV1', choices: ['prdo','stage','uat'], description: '')
+                     choice(name: 'ENV2', choices: ['prdo','stage','uat'], description: '')
+                }
+            }
             steps {
                 script {
                     gv.deployApp()
+                    
                 }
             }
         }
