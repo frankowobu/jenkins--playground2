@@ -6,5 +6,6 @@ def testApp(){
 }
 def deployApp(){
   echo "Deploying the application..."
+  echo "deploying to ${ENV1} and ${ENV2}"
 }
 return this
