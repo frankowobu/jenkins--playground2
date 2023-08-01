@@ -1,29 +1,31 @@
 #!/usr/bin/env groovy
 
 pipeline {
-    agent any
-    envitonment{
-        NEW_VERSION = "1.2"
+    agent none
+    environment{
+        NEW_VERSION = '3.2'
     }
     stages {
         stage('build') {
             steps {
-                    echo "Building the application with version ${NEW_VERSION}....."
+                script {
+                    echo "Building the application for version ${NEW_VERSION}..."
+                }
             }
         }
         stage('test') {
             steps {
                 script {
-                    echo "Testing the application to be new....."  
-                    }
+                    echo "Testing the application..."
                 }
             }
         }
         stage('deploy') {
             steps {
                 script {
-                    echo "Deploying the application....."
+                    echo "Deploying the application..."
                 }
             }
         }
     }
+}
