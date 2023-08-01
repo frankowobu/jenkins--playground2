@@ -5,6 +5,7 @@ pipeline {
 
     parameters{
         choice(name: 'VERSION', choices: ['1.1', '1.2', '1.3', '2.0', '2.1', '2.2'], description: 'Select the version to build and deploy.')
+        booleanParam(name: "executeTests", defaultValue = true, desscription: 'testting' )
     }
     stages {
         stage('build') {
@@ -17,6 +18,11 @@ pipeline {
         stage('test') {
             steps {
                 script {
+                    when {
+                        expression{
+                            params.executeTests
+                        }
+                    }
                     echo "Testing the application..."
                 }
             }
