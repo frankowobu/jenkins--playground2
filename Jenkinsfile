@@ -17,6 +17,7 @@ pipeline {
             }
         }
         stage('build') {
+            }
             steps {
                 script {
                     gv.buildApp()
@@ -24,6 +25,11 @@ pipeline {
             }
         }
         stage('test') {
+            when{
+                expression{
+                    params.executeTests
+                }
+            
             steps {
                 script {
                     gv.testApp()
