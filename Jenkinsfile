@@ -3,7 +3,7 @@
 pipeline {
     agent any
     envitonment{
-        NEW_VERSION = 1.2
+        NEW_VERSION = "1.2"
     }
     stages {
         stage('build') {
@@ -16,7 +16,7 @@ pipeline {
         stage('test') {
             steps {
                 script {
-                    echo "Testing the application....."  
+                    echo "Testing the application to be new....."  
                     }
                 }
             }
