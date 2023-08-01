@@ -5,6 +5,7 @@ pipeline {
 
     parameters {
         choice(name: 'VERSION', choices: ['1.1', '1.2', '1.3', '2.0', '2.1', '2.2'], description: 'Select the version to build and deploy.')
+        booleanParam(name: 'executeTests', defaultValue: true, description: 'Run tests during the build.')
     }
 
     stages {
@@ -23,15 +24,9 @@ pipeline {
             }
         }
         stage('test') {
-            steps {
-                script {
-                    // Prompt the user for the COND parameter using the input step
-                    def userInput = input message: 'Select a condition for test', parameters: [choice(name: 'COND', choices: ['option1', 'option2'], description: 'Select a condition for test.')]
-                    echo "Running test with ${userInput.COND}..."
-                    if (userInput.COND == 'option1') {
-                        env.executeTests = 'false'
-                    }
-                    gv.testApp()
+            when {
+                expression {
+                    params.executeTests
                 }
             }
         }
