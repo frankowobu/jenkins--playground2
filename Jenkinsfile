@@ -29,6 +29,11 @@ pipeline {
                     params.executeTests
                 }
             }
+            steps {
+                script {
+                    gv.testApp()
+                }
+            }
         }
         stage('deploy') {
             input {
