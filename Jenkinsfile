@@ -4,7 +4,7 @@ pipeline {
     agent none
 
     parameters{
-        choice(name:VERSION, choices: [1.1,1.2,1.3], description: "")
+        choice(name: 'VERSION', choices: ['1.1', '1.2', '1.3', '2.0', '2.1', '2.2'], description: 'Select the version to build and deploy.')
     }
     stages {
         stage('build') {
