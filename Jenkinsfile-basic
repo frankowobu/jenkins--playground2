@@ -22,9 +22,16 @@ pipeline {
             }
         }
         stage('deploy') {
+            input{
+              message 'Where would you like us to deploy?'
+              ok 'done'
+              parameters{
+                 choice(name: 'DEPLOY', choices: ['UAT', 'STAGE', 'PROD'], description: 'Choose the version for deployment')
+              }
+            }
             steps {
                 script {
-                    echo "Deploying the application..."
+                    echo "Deploying the application to ${params.DEPLOY}..."
                 }
             }
         }
