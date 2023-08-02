@@ -1,8 +1,6 @@
-#!/usr/bin/env groovy
-
 pipeline {
     agent any
-    tools{
+    tools {
         maven 'maven-3.9.3'
     }
     stages {
@@ -18,20 +16,13 @@ pipeline {
             steps {
                 script {
                     echo "Building the application image..."
-                     withCredentials([
-                        usernamePassword(credentialsId: 'my-docker-credentials', userVariable: 'USER', passwordVariable: 'PASS')
-                    ]){
-                        sh 'docker build -t faizegbhene/jenkins-maven-repo:1.0 . '
-                        sh "echo $PASS | docker login -u $USER --password-stdin"
+                    withCredentials([
+                        usernamePassword(credentialsId: 'my-docker-credentials', usernameVariable: 'USER', passwordVariable: 'PASS')
+                    ]) {
+                        sh 'docker build -t faizegbhene/jenkins-maven-repo:1.0 .'
+                        sh 'echo $PASS | docker login -u $USER --password-stdin'
                         sh 'docker push faizegbhene/jenkins-maven-repo:1.0'
                     }
-                }
-            }
-        }
-        stage('test') {
-            steps {
-                script {
-                    echo "Testing the application..."
                 }
             }
         }
