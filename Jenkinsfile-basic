@@ -3,8 +3,8 @@
 pipeline {
     agent none
      parameters {
-        choice(name: 'OLDER-VERSION', choices: ['1.0', '1.1', '1.2'], description: 'Choose the version for deployment')
-        choice(name: 'NEWER-VERSION', choices: ['1.0', '1.1', '1.2'], description: 'Choose the version for deployment')
+        choice(name: 'OLDER_VERSION', choices: ['1.0', '1.1', '1.2'], description: 'Choose the version for deployment')
+        choice(name: 'NEWER_VERSION', choices: ['1.0', '1.1', '1.2'], description: 'Choose the version for deployment')
     }
     stages {
         stage('build') {
