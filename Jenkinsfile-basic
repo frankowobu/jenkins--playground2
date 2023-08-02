@@ -3,13 +3,14 @@
 pipeline {
     agent none
      parameters {
-        choice(name: 'VERSION', choices: ['1.0', '1.1', '1.2'], description: 'Choose the version for deployment')
+        choice(name: 'OLDER-VERSION', choices: ['1.0', '1.1', '1.2'], description: 'Choose the version for deployment')
+        choice(name: 'NEWER-VERSION', choices: ['1.0', '1.1', '1.2'], description: 'Choose the version for deployment')
     }
     stages {
         stage('build') {
             steps {
                 script {
-                    echo "Building the application with version ${params.VERSION}..."
+                    echo "upgrading the application from version ${params.OLDER-VERSION} to version ${params.NEWER-VERSION}..."
                 }
             }
         }
