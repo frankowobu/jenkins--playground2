@@ -10,7 +10,7 @@ pipeline {
         stage('build') {
             steps {
                 script {
-                    echo "upgrading the application from version ${params.OLDER-VERSION} to version ${params.NEWER-VERSION}..."
+                    echo "upgrading the application from version ${params.OLDER_VERSION} to version ${params.NEWER_VERSION}..."
                 }
             }
         }
