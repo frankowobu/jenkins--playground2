@@ -16,11 +16,14 @@ pipeline {
             }
         }
         stage('build image') {
+             environment {
+                IMAGE_NAME = "$BUILD_NUMBER"
+            }
             steps {
                 script {
                     echo "Building the application image..."
                     withCredentials([
-                        usernamePassword(credntialsId:'dockerhub-repo',usernameVariable:'PASS',passwordVariable:'PWD')
+                        usernamePassword(credentialsId:'dockerhub-repo',usernameVariable:'PASS',passwordVariable:'PWD')
                     ]){
                         sh "docker build -t faizegbhene/jenkins-maven-repo:$IMAGE_NAME ."
                         sh "echo $PWD | docker login -u $PASS --password-stdin"
