@@ -6,11 +6,25 @@ pipeline {
         maven 'maven'
     }
     stages {
+        stage('image versioning') {
+            steps {
+                script {
+                    echo "versioning the image"
+                    sh 'mvn build-helper:parse-version versions:Set \
+                        -DnewVersion=\\\${parsed.majorVersion}.\\\${parsed.minorVersion}.\\\${parsed.newIncrementVersion} \
+                        versions:commit'
+                    def matcher = readFile('pom.xml') =~ '<version>(.+)</version>'
+                    def version = matcher[0][1]
+                    env.IMAGE_NAME = "$version-$BUILD_NUMBER"
+                }
+            }
+        }
         stage('build jar') {
             steps {
                 script {
                     echo "Building the application..."
-                    sh "mvn package"
+                    sh "mvn clean package"
+
                 }
             }
         }
@@ -18,7 +32,13 @@ pipeline {
             steps {
                 script {
                     echo "Building the application image..."
-                    sh "docker build -t jenmav ."
+                    withCredentials([
+                        usernamePassword(credntialsId:,usernameVariable:'PASS',passwordVariable:'PWD')
+                    ]){
+                        sh "docker build -t faizegbhene/jenkins-maven-repo:$IMAGE_NAME ."
+                        sh "echo $PWD | docker login -u $PASS --password-stdin"
+                        sh "docker push faizegbhene/jenkins-maven-repo:$IMAGE_NAME"
+                    }
                 }
             }
         }
