@@ -8,5 +8,6 @@ COPY target/java-maven-app-*.jar app.jar
 
 # Expose the port that your Spring Boot application listens on (replace 8080 with your application's port)
 EXPOSE 8081
+
 # Set the command to run your Spring Boot application
-CMD ["java", "-jar", "java-maven-app-*.jar"]
+CMD ["java", "-jar", "app.jar"]
